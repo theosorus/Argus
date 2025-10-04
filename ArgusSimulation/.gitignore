@@ -1,0 +1,14 @@
+Logs/
+Packages/
+Temp/
+Library/
+.vscode/
+Assets/Import
+
+*.DS_Store
+*.user
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+*.meta
