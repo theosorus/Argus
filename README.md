@@ -1,193 +1,48 @@
-# 🎯 Argus - Vision-Guided Missile Simulation
-
-<div align="center">
-<img src="assets/argus_gif.gif" width="600">
-</div>
 
 
-## 🌟 Overview
 
-**Argus** is an advanced simulation that combines **machine learning** and **real-time 3D physics** to create a self-guided missile system. The project demonstrates how computer vision can be integrated into game engines for autonomous target tracking and interception.
+# Argus - Simulation of self-guided missile using computer vision 
 
-Named after the **Argus Panoptes** from Greek mythology—a giant with a hundred eyes—this project embodies the concept of constant visual surveillance and intelligent tracking.
-
-### Why This Project?
-
-- 🧠 **AI Integration in Games**: Demonstrates real-world ML model deployment in Unity
-- 🎮 **Realistic Physics**: Implements aerodynamic flight dynamics with lift, drag, and angle of attack
-- 🎯 **Autonomous Guidance**: Uses proportional navigation based on real-time object detection
-- 🔬 **Educational**: Perfect for learning ML inference, Unity Sentis, and game physics
-
----
-
-## ✨ Features
-
-### 🤖 Computer Vision & AI
-- **YOLOv8 Object Detection** running in real-time on GPU
-- **Unity Sentis Integration** for neural network inference
-- **Single-class aircraft detection** optimized for accuracy
-- **Real-time bounding box visualization** with confidence scores
-
-### 🚁 Flight Physics
-- **Realistic aerodynamic model** with lift/drag calculations
-- **Angle of Attack (AoA)** based flight dynamics
-- **Proportional Navigation** guidance system
-- **Manual plane controls** with throttle, pitch, and roll
+The goal of this project is to create a realistic simulation with 
 
 
 
 
+## Vizion Model
+
+- Dataset kaggle : https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset
+All type of planes in 1 class : Plane to make a 1 class model and get more accuracy
+- GPU Kaggle - 10 min - GPU P100
+- Yolov8 (spec yolo)
 
 
+## Simulation
 
-## 📦 Part 1: ArgusModel - ML Training & Export
+For the simulation I used the Game Engine Unity 2023
 
-### 🔬 What It Does
+### 3d assets on sketch fab
 
-1. **Dataset Preparation**
-   - Uses the [Kaggle Military Aircraft Detection Dataset](https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset)
-   - All aircraft types merged into a single **"Plane"** class for maximum accuracy
-   - Trained on Kaggle GPU (NVIDIA P100) in ~10 minutes
+### Use yolo model in unity
 
-2. **Model Training**
-   - **Architecture**: YOLOv8n (nano variant for real-time performance)
-   - **Input Size**: 640×640 pixels
-   - **Output**: Bounding boxes with confidence scores
+To use a yolo model in unity. I used a packed named (Sentis)[]. 
+I export the model in onxx 
 
-3. **ONNX Export for Unity**
-   ```python
-   # main.py - Optimized export for Unity Sentis
-   model.export(
-       format='onnx',
-       imgsz=640,
-       simplify=True,
-       opset=15,        # Sentis compatibility
-       batch=1,         # Fixed batch size
-       dynamic=False    # Static shapes for performance
-   )
-   ```
-
----
-
-### 🎮 Part 2: ArgusSimulation - Unity 3D Simulation
-
-**Location**: `ArgusSimulation/`
-**Engine**: Unity 2023.2.20f1
-**Language**: C#
-**Purpose**: Real-time 3D simulation with vision-guided missile
-
-#### 🎯 What It Does
-
-This is where the magic happens! The Unity simulation integrates the trained model with realistic physics to create an autonomous missile system.
-
-#### 🧩 Core Components
-
-##### 1️⃣ **YoloDetector.cs** - Vision & Guidance Brain
-The heart of the guidance system:
-
-```csharp
-// Key responsibilities:
-- Runs YOLOv8 model on GPU using Unity Sentis
-- Processes camera feed → 640×640 tensor input
-- Detects aircraft in real-time (60 FPS)
-- Computes target offset from screen center
-- Updates missile trajectory using proportional navigation
-```
-
-**How Guidance Works**:
-1. Camera captures view → 640×640 render texture
-2. Sentis runs YOLOv8 inference → detections `[x, y, w, h, confidence]`
-3. Target center computed in screen space
-4. Offset calculated: `(targetX - screenCenterX, targetY - screenCenterY)`
-5. Missile rotates toward target: yaw ∝ offsetX, pitch ∝ offsetY
-
-<div align="center">
-<img src="assets/missile_camera_assets.png" width="500">
-</div>
+### Physics implementation
 
 
+#### self-guidance
+![image](./Capture%20d’écran%202025-09-30%20à%2023.16.14.png)
 
+## Why argus ?
+I choose the name of Argus for this project because its a reference to the mythologie était le géant doté de cent yeux 
 
+## Improvements
 
+-For the future i can image an hybride model to combine detection and tracking
+-better physics 
+-better ui and camera features
 
+## Acknolegment
 
-## 📊 Technical Specifications
-
-### Model Performance
-
-| Metric | Value |
-|--------|-------|
-| Input Size | 640×640 RGB |
-| Inference Time | ~16-30ms (GPU) |
-| FPS | 30-60 |
-| Confidence Threshold | 0.9 |
-| Architecture | YOLOv8n |
-
-### Physics Parameters
-
-| Parameter | Default Value |
-|-----------|---------------|
-| Air Density | 1.225 kg/m³ |
-| Wing Area | 16 m² |
-| Max Thrust | 190 N |
-| Lift Slope (ClAlpha) | 5.5 |
-| Induced Drag (k) | 0.04 |
-
----
-
-
-
-## 🎯 How It Works
-
-### The Complete Pipeline
-
-```
-[Camera Feed] → [640×640 Tensor] → [YOLOv8 Sentis] → [Detections]
-     ↑                                                      ↓
-     └──[Missile Rotation]←[Proportional Navigation]←[Offset Calculation]
-```
-
-### Proportional Navigation Explained
-
-The missile uses a classic guidance law:
-
-1. **Detection**: YOLOv8 finds target bounding box `[x, y, w, h]`
-2. **Center Calculation**: `targetCenter = (x + w/2, y + h/2)`
-3. **Screen Offset**: `offset = targetCenter - screenCenter`
-4. **Normalize**: `offsetNormalized = offset / screenSize × 2` → range `[-1, 1]`
-5. **Apply Rotation**:
-   ```csharp
-   yaw += offsetX × rotationSpeed × deltaTime
-   pitch += offsetY × rotationSpeed × deltaTime
-   ```
-
-This creates a smooth pursuit trajectory that leads the target!
-
----
-
-## 🚀 Future Improvements
-
-- [ ] **Hybrid Tracking**: Combine detection with Kalman filtering for smoother tracking
-- [ ] **Multi-Target**: Track and prioritize multiple aircraft
-- [ ] **Better Physics**: Add wind resistance, thrust vectoring, fuel consumption
-- [ ] **Advanced UI**: HUD with radar, lock indicators, target info
-- [ ] **Multiplayer**: Network-based dogfighting simulation
-
----
-
-## 📚 References & Credits
-
-### Learning Resources
-- **Plane Physics Tutorials**:
-  - [Unity Flight Physics Part 1](https://www.youtube.com/watch?v=fThb5M2OBJ8)
-  - [Unity Flight Physics Part 2](https://www.youtube.com/watch?v=7vAHo2B1zLc)
-
-### Datasets & Models
-- **Dataset**: [Kaggle Military Aircraft Detection](https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset)
-- **YOLOv8**: [Ultralytics](https://github.com/ultralytics/ultralytics)
-- **Unity Sentis**: [Unity ML Inference](https://unity.com/products/sentis)
-
-### Assets
-- 3D Models: Sketchfab
-- VFX: HQ Explosions Pack (Free)
-
+- plane physic : https://www.youtube.com/watch?v=fThb5M2OBJ8
+- plane physic : https://www.youtube.com/watch?v=7vAHo2B1zLc
