@@ -4,7 +4,7 @@
 <img src="assets/argus_gif.gif" width="600">
 </div>
 
-## 🌟 Overview
+
 
 **Argus** is an advanced simulation that combines **machine learning** and **real-time 3D physics** to create a self-guided missile system. The project demonstrates how computer vision can be integrated into game engines for autonomous target tracking and interception.
 
@@ -12,7 +12,7 @@ Named after the [**Argus Panoptes**](en.wikipedia.org/wiki/Argus_Panoptes) from 
 
 ---
 
-## ✨ Features
+##  Features
 
 ### 🤖 Computer Vision & AI
 - **YOLOv8 Object Detection** running in real-time on GPU
@@ -127,7 +127,7 @@ model.export(
 
 ---
 
-## 📚 References & Credits
+##  References & Credits
 
 - [Unity Flight Physics - b3agz](https://www.youtube.com/watch?v=fThb5M2OBJ8)
 - [Unity Flight Physics - Vazgriz](https://www.youtube.com/watch?v=7vAHo2B1zLc)
