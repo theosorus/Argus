@@ -8,11 +8,7 @@
 
 
 Named after the [**Argus Panoptes**](en.wikipedia.org/wiki/Argus_Panoptes) from Greek mythology—a giant with a hundred eyes—this project embodies the concept of constant visual surveillance and intelligent tracking.
-### Why This Project?
-- 🧠 **AI Integration in Games**: Demonstrates real-world ML model deployment in Unity
-- 🎮 **Realistic Physics**: Implements aerodynamic flight dynamics with lift, drag, and angle of attack
-- 🎯 **Autonomous Guidance**: Uses proportional navigation based on real-time object detection
-- 🔬 **Educational**: Perfect for learning ML inference, Unity Sentis, and game physics
+
 ---
 ## ✨ Features
 ### 🤖 Computer Vision & AI
@@ -25,17 +21,17 @@ Named after the [**Argus Panoptes**](en.wikipedia.org/wiki/Argus_Panoptes) from 
 - **Angle of Attack (AoA)** based flight dynamics
 - **Proportional Navigation** guidance system
 - **Manual plane controls** with throttle, pitch, and roll
-## 📦 Part 1: ArgusModel - ML Training & Export
-### 🔬 What It Does
-1. **Dataset Preparation**
+## 🤖 ArgusModel - ML Training & Export
+
+### **Data**
    - Uses the [Kaggle Military Aircraft Detection Dataset](https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset)
    - All aircraft types merged into a single **"Plane"** class for maximum accuracy
    - Trained on Kaggle GPU (NVIDIA P100) in ~10 minutes
-2. **Model Training**
+### **Model Training**
    - **Architecture**: YOLOv8n (nano variant for real-time performance)
    - **Input Size**: 640×640 pixels
    - **Output**: Bounding boxes with confidence scores
-3. **ONNX Export for Unity**
+### **ONNX Export for Unity**
 
 
    ```python
@@ -49,24 +45,6 @@ Named after the [**Argus Panoptes**](en.wikipedia.org/wiki/Argus_Panoptes) from 
        dynamic=False    # Static shapes for performance
    )
    ```
----
-## 🎮 Part 2: ArgusSimulation - Unity 3D Simulation
-**Engine**: Unity 2023.2.20f1
-
-
-**How Guidance Works**:
-1. Camera captures view → 640×640 render texture
-2. Sentis runs YOLOv8 inference → detections `[x, y, w, h, confidence]`
-3. Target center computed in screen space
-4. Offset calculated: `(targetX - screenCenterX, targetY - screenCenterY)`
-5. Missile rotates toward target: yaw ∝ offsetX, pitch ∝ offsetY
-<div align="center">
-<img src="assets/missile_camera_assets.png" width="500">
-</div>
-
-
-## 📊 Technical Specifications
-
 ### Model Performance
 | Metric | Value |
 |--------|-------|
@@ -75,6 +53,17 @@ Named after the [**Argus Panoptes**](en.wikipedia.org/wiki/Argus_Panoptes) from 
 | FPS | 30-60 |
 | Confidence Threshold | 0.9 |
 | Architecture | YOLOv8n |
+---
+## 🎮 ArgusSimulation - Unity 3D Simulation
+**Engine**: Unity 2023.2.20f1
+
+
+
+
+
+## 📊 Technical Specifications
+
+
 ### Physics Parameters
 | Parameter | Default Value |
 |-----------|---------------|
@@ -85,6 +74,16 @@ Named after the [**Argus Panoptes**](en.wikipedia.org/wiki/Argus_Panoptes) from 
 | Induced Drag (k) | 0.04 |
 ---
 ## 🎯 How It Works
+
+### **How Guidance Works**:
+1. Camera captures view → 640×640 render texture
+2. Sentis runs YOLOv8 inference → detections `[x, y, w, h, confidence]`
+3. Target center computed in screen space
+4. Offset calculated: `(targetX - screenCenterX, targetY - screenCenterY)`
+5. Missile rotates toward target: yaw ∝ offsetX, pitch ∝ offsetY
+<div align="center">
+<img src="assets/missile_camera_assets.png" width="500">
+</div>
 
 
 ### The Complete Pipeline
