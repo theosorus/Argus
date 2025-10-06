@@ -1,6 +1,0 @@
-Création d'une simultion avec unity dans laquelle on simula un missile autoguidé par computer vision à l'aide d'un modele yolov8
-
-
-Création d'une simulation avec Unity dans laquelle on simule un missile autoguidé par vision par ordinateur à l'aide d'un modèle YOLOv8
-
-Creation of a Unity simulation in which we simulate a self-guided missile using computer vision with a YOLOv8 model
