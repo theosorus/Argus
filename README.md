@@ -1,4 +1,4 @@
-# 🎯 Argus - Vision-Guided Missile Simulation
+#  Argus - Vision-Guided Missile Simulation
 
 <div align="center">
 <img src="assets/argus_gif.gif" width="600">
@@ -14,13 +14,13 @@
 
 ##  Features
 
-### 🤖 Computer Vision & AI
+### Computer Vision & AI
 - **YOLOv8 Object Detection** running in real-time on GPU
 - **Unity Sentis Integration** for neural network inference
 - **Single-class aircraft detection** optimized for accuracy
 - **Real-time bounding box visualization** with confidence scores
 
-### 🚁 Flight Physics
+### Flight Physics
 - **Realistic aerodynamic model** with lift/drag calculations
 - **Angle of Attack (AoA)** based flight dynamics
 - **Proportional Navigation** guidance system
@@ -28,7 +28,7 @@
 
 ---
 
-## 🎯 How It Works
+## How It Works
 
 ### The Complete Pipeline
 ```
@@ -64,7 +64,7 @@ This creates a smooth pursuit trajectory that leads the target!
 
 ---
 
-## 🤖 ArgusModel - ML Training & Export
+## ArgusModel - ML Training & Export
 
 ### **Data**
 - Uses the [Kaggle Military Aircraft Detection Dataset](https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset)
@@ -104,7 +104,7 @@ model.export(
 
 **Engine**: Unity 2023.2.20f1
 
-## 📊 Technical Specifications
+## Technical Specifications
 
 ### Physics Parameters
 | Parameter | Default Value |
@@ -117,7 +117,7 @@ model.export(
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
 - [ ] **Hybrid Tracking**: Combine detection with Kalman filtering for smoother tracking
 - [ ] **Multi-Target**: Track and prioritize multiple aircraft
