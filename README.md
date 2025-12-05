@@ -100,7 +100,7 @@ model.export(
 
 ---
 
-## 🎮 ArgusSimulation - Unity 3D Simulation
+## ArgusSimulation - Unity 3D Simulation
 
 **Engine**: Unity 2023.2.20f1
 
